@@ -1,19 +1,10 @@
 import { Router } from 'express';
-import { calculateProfitability, getFeeStructure } from '../controllers/calculator.controller';
+import { CalculatorController } from '../controllers/calculator.controller';
 
 const router = Router();
+const calculatorController = new CalculatorController();
 
-// Wrap async route handlers to properly catch errors
-const asyncHandler = (fn: Function) => (req: any, res: any, next: any) => {
-    Promise.resolve(fn(req, res, next)).catch(next);
-};
+router.post('/calculate', calculatorController.calculateProfitability);
+router.get('/fee-structure', calculatorController.getFeeStructure);
 
-// Test endpoint
-router.get('/test', (req, res) => {
-    res.json({ message: 'API is working!' });
-});
-
-router.post('/profitability-calculator', asyncHandler(calculateProfitability));
-router.get('/fee-structure', asyncHandler(getFeeStructure));
-
-export { router as calculatorRoutes }; 
+export default router; 

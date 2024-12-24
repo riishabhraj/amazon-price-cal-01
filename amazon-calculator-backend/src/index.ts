@@ -2,7 +2,7 @@ import express, { Request, Response, NextFunction } from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
-import { calculatorRoutes } from './routes/calculator.routes';
+import calculatorRoutes from './routes/calculator.routes';
 
 dotenv.config();
 
@@ -23,7 +23,7 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
 });
 
 // MongoDB connection with better error handling
-mongoose.connect(process.env.MONGODB_URI!)
+mongoose.connect(process.env.MONGODB_URI!,)
   .then(() => {
     console.log('Connected to MongoDB');
     app.listen(PORT, () => {
